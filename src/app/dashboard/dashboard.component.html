@@ -1,0 +1,66 @@
+<div class="card rounded-3">
+    <span id="currentDateTime" class="bg-danger nav-link text-white">
+        <span id="currentTime" style="font-size: 34px; font-weight: bold;">{{ horaActual }}</span> -
+        <span id="currentDate" style="font-size: 20px; font-weight: bold;">{{ fechaActual }}</span>
+    </span>
+    <div class="card-body p-4">
+
+
+
+        <!-- Title -->
+        <span class="fs-6">Traducciones</span>
+        <p class="mb-2"><span class="h2 me-2">Acuerdos de equipo</span>
+        </p>
+
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" placeholder="Traducir Palabra de ingles a español"
+                aria-label="Traducir Palabra de ingles a español" aria-describedby="btn-add-task"
+                [(ngModel)]="palabraATraducir">
+            <button class="btn btn-primary" type="button" id="btn-add-task"
+                (click)="traducirPalabra()">Traducir</button>
+        </div>
+
+        <div class="input-group mb-4">
+            <p>Palabra a traducir: {{ palabraATraducir }}</p>
+        </div>
+        <div class="input-group mb-4">
+            <p>Palabra traducida: {{ palabraTraducida }}</p>
+        </div>
+
+
+        <!-- Nav -->
+        <ul class="nav nav-underline mb-4">
+            <li class="nav-item cursor-pointer">
+                <a class="nav-link neutral active">Todos</a>
+            </li>
+            <li class="nav-item cursor-pointer">
+                <a class="nav-link neutral">Activos</a>
+            </li>
+            <li class="nav-item cursor-pointer">
+                <a class="nav-link neutral">Completados</a>
+            </li>
+        </ul>
+
+        <ul class="list-group mb-0" *ngIf="traducciones.length > 0; else notDataTpl">
+            <li *ngFor="let traduccion of traducciones; let i = index"
+                class="list-group-item d-flex justify-content-between align-items-center border-0 mb-2 rounded"
+                style="background-color: #f4f6f7;">
+              <div>
+                <!-- Mostrar el ID, palabra ingresada y palabra traducida -->
+                ID: {{ traduccion.id }} - Palabra ingresada: {{ traduccion.palabraIngresada }} - Palabra traducida: {{ traduccion.palabraTraducida }}
+              </div>
+              <!-- Agregar un botón para eliminar la traducción -->
+              <button class="btn btn-danger" (click)="eliminarTraduccion(traduccion.id)">Delete</button>
+            </li>
+          </ul>
+          
+
+        <ng-template #notDataTpl>
+            <div class="d-flex flex-column align-items-center">
+                <img src="assets/svgs/undraw_clean_up_re_504g.svg" width="200" height="200" alt="No hay data">
+                <span class="fs-6 text-secondary">No se encontraron traducciones</span>
+            </div>
+        </ng-template>
+
+    </div>
+</div>
